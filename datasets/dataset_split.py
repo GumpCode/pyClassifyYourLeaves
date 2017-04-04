@@ -38,8 +38,9 @@ class XmlReader4Clef:
 
 class ExcelReader4Clef:
 
-    def __init__(self, filepath):
+    def __init__(self, filepath, threshold):
         self.filepath = filepath
+        self.threshold = threshold
         self.parseEXCEL()
 
     def parseEXCEL(self):
@@ -51,5 +52,5 @@ class ExcelReader4Clef:
         for rownum in range(1, nrows):
             row = table.row_values(rownum)
             count = int(row[1]) + int(row[4]) + int(row[7])
-            if count > 40:
+            if count > self.threshold:
                 self.names.append(row[0])
