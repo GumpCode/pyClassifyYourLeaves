@@ -20,9 +20,9 @@ DATASET_DIR=splited_data/output
 python train_image_classifier.py \
   --train_dir=${TRAIN_DIR} \
   --dataset_name=clef \
-  --dataset_split_name=first_second \
+  --dataset_split_name=train \
   --dataset_dir=${DATASET_DIR} \
-  --model_name=inception_v3 \
+  --model_name=vgg_16 \
   --preprocessing_name=vgg \
   --max_number_of_steps=100000 \
   --batch_size=8 \

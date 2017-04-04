@@ -233,7 +233,6 @@ def preprocess_for_train(image, height, width, bbox,
                      tf.expand_dims(distorted_image, 0))
     distorted_image = tf.subtract(distorted_image, 0.5)
     distorted_image = tf.multiply(distorted_image, 2.0)
-    print(np.shape(distorted_image))
     return distorted_image
 
 

@@ -20,8 +20,10 @@ import cv2
 import numpy as np
 import tensorflow as tf
 
-from datasets.dataset_split import XmlReader4Clef
-from datasets.dataset_split import ExcelReader4Clef
+#from datasets.dataset_split import XmlReader4Clef
+#from datasets.dataset_split import ExcelReader4Clef
+from dataset_split import XmlReader4Clef
+from dataset_split import ExcelReader4Clef
 
 
 tf.app.flags.DEFINE_string('data_dir', 'data/CLEF_data/FourniApresCLEF2012/data/train',
@@ -61,17 +63,18 @@ def addPad(img, width, height):
         for i in new_img[:,:,channel]:
             i = mean[channel]
     for channel in range(img.shape[2]):
-        new_img[width_break_point+1:254-width_break_point,height_break_point+1:254-height_break_point,channel] = img[:,:,channel]
+        new_img[width_break_point:width_break_point+img.shape[1]+1,
+            height_break_point:height_break_point+img.shape[1]+1,
+            channel] = img[:,:,channel]
 
     return new_img
 
-def tripleSplit(record_list):
-    point = int(len(record_list)/3)
+def doubleSplit(record_list):
+    point = int(len(record_list)/10*3)
     random.shuffle(record_list)
     list = []
-    list.append(record_list[0:point])
-    list.append(record_list[point:2*point])
-    list.append(record_list[2*point: len(record_list)])
+    list.append(record_list[0:point+1])
+    list.append(record_list[point+1: len(record_list)])
 
     return list
 
@@ -98,7 +101,7 @@ if __name__ == '__main__':
     width = 256
     height = 256
     shape = [width, height]
-    dirsets = ['part_first', 'part_second', 'part_third']
+    dirsets = ['test', 'train']
     xml_list = glob.glob('{}/*.xml'.format(data_dir))
     class2num_file = 'class2num.txt'
     #init state
@@ -142,11 +145,10 @@ if __name__ == '__main__':
     j = 0
     for key in record.keys():
         for l in record[key]:
-            if len(l) >= 3:
-                splited_result = tripleSplit(l)
+            if len(l) >= 2:
+                splited_result = doubleSplit(l)
                 copyImg(splited_result[0], dirsets[0], j, tp, shape)
                 copyImg(splited_result[1], dirsets[1], j, tp, shape)
-                copyImg(splited_result[2], dirsets[2], j, tp, shape)
             else:
                 n = random.randint(0,1)
                 copyImg(l, dirsets[n], j, tp, shape)

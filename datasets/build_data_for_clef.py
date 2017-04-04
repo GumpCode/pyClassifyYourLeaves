@@ -75,12 +75,10 @@ import threading
 import numpy as np
 import tensorflow as tf
 
-tf.app.flags.DEFINE_string('PART_first_directory', '/tmp/',
-                           'part-first data directory')
-tf.app.flags.DEFINE_string('PART_second_directory', '/tmp/',
+tf.app.flags.DEFINE_string('train_directory', '/tmp/',
+                           'train data directory')
+tf.app.flags.DEFINE_string('test_directory', '/tmp/',
                            'part-second data directory')
-#tf.app.flags.DEFINE_string('PART_third_directory', '/tmp/',
-#                           'part-third data directory')
 tf.app.flags.DEFINE_string('output_directory', '/tmp/',
                            'Output data directory')
 
@@ -429,11 +427,9 @@ def main(unused_argv):
   print('Saving results to %s' % FLAGS.output_directory)
 
   # Run it!
-  _process_dataset('part_first', FLAGS.PART_first_directory,
+  _process_dataset('train_directory', FLAGS.TRAIN_DIRECTORY,
                    FLAGS.shards, FLAGS.labels_file)
-  _process_dataset('part_second', FLAGS.PART_second_directory,
-                   FLAGS.shards, FLAGS.labels_file)
-  #_process_dataset('part_third', FLAGS.PART_third_directory,
+  _process_dataset('test_directory', FLAGS.TEST_DIRECTORY,
                    FLAGS.shards, FLAGS.labels_file)
 
 

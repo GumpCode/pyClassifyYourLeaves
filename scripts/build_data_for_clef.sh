@@ -8,16 +8,16 @@
 # ./scripts/build_data_for_clef.sh
 
 DATA_DIR=splited_data
-FIRST_DIR=${DATA_DIR}/part_first
-SECOND_DIR=${DATA_DIR}/part_second
+TRAIN_DIR=${DATA_DIR}/train
+TEST_DIR=${DATA_DIR}/test
 LABEL_FILE=${DATA_DIR}/label.txt
 OUTPUT_DIR=${DATA_DIR}/output
 SHARDS=1
 
 # Run processing.
-python datasets/preSplitDataset.py \
-  --PART_first_directory=${FIRST_DIR} \
-  --PART_second_directory=${SECOND_DIR} \
+python datasets/build_data_for_clef.py \
+  --train_directory=${TRAIN_DIR} \
+  --test_directory=${TEST_DIR} \
   --output_directory=${OUTPUT_DIR} \
   --shards=${SHARDS} \
   --labels_file=${LABEL_FILE} \

@@ -9,12 +9,12 @@
 
 DATA_DIR=data/CLEF_data/FourniApresCLEF2012/data/train
 EXCEL_FILE=data/CLEF_data/perClassNum.xls
-RESIZE=resize
+RESIZE_TYPE=resize
 SPLITED_DATA_DIR=splited_data
 
 # Run processing.
-python datasets/splited_data_for_clef.py \
+python datasets/preSplitDataset.py \
   --data-dir=${DATA_DIR} \
   --excel_file=${EXCEL_FILE} \
   --splited_data_dir=${SPLITED_DATA_DIR} \
-  --resize=${RESIZE} 
+  --resize=${RESIZE_TYPE} 
