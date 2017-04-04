@@ -15,7 +15,7 @@ OUTPUT_DIR=${DATA_DIR}/output
 SHARDS=1
 
 # Run processing.
-python datasets/build_data_for_clef.py \
+python datasets/preSplitDataset.py \
   --PART_first_directory=${FIRST_DIR} \
   --PART_second_directory=${SECOND_DIR} \
   --output_directory=${OUTPUT_DIR} \
