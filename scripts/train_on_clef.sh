@@ -23,7 +23,7 @@ python train_image_classifier.py \
   --dataset_split_name=train \
   --dataset_dir=${DATASET_DIR} \
   --model_name=vgg_16 \
-  --preprocessing_name=vgg \
+  --preprocessing_name=clef \
   --max_number_of_steps=100000 \
   --batch_size=8 \
   --save_interval_secs=120 \
