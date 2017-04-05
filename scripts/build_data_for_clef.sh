@@ -10,9 +10,14 @@
 DATA_DIR=splited_data
 TRAIN_DIR=${DATA_DIR}/train
 TEST_DIR=${DATA_DIR}/test
-LABEL_FILE=${DATA_DIR}/label.txt
+LABEL_FILE=label.txt
 OUTPUT_DIR=${DATA_DIR}/output
+CLASS_NUM=72
 SHARDS=1
+
+#make label_file 
+python datasets/make_label_file.py \
+  ${CLASS_NUM}
 
 # Run processing.
 python datasets/build_data_for_clef.py \

@@ -13,8 +13,9 @@
 TRAIN_DIR=log
 
 # Where the dataset is saved to.
-DATASET_DIR=splited_dat
+DATASET_DIR=splited_data
 PRETRAINED_CHECKPOINT_DIR=checkpoint
+CLASS_NUM=72
 
 
 # Run training.
@@ -36,6 +37,7 @@ python train_image_classifier.py \
   --learning_rate_decay_factor=0.1 \
   --num_epochs_per_decay=200 \
   --weight_decay=0.004 \
+  --labeloffsets=${CLASS_NUM} \
   --train_image_size=224
 
 # Run evaluation.
