@@ -29,20 +29,14 @@ from datasets import dataset_utils
 
 slim = tf.contrib.slim
 
-_FILE_PATTERN = {'first_second': 'part_first-00000-of-00001',
-        'first_third': 'part-(first|third)-00000-of-00001',
-        'second_third': 'part-(second|third)-00000-of-00001'
-        }
+_FILE_PATTERN = '%s-00000-of-00001'
 
-SPLITS_TO_SIZES = {'first_second': 5089,
-        'first_third': 5261,
-        'second_third': 5452
-        }
+SPLITS_TO_SIZES = {'train': 5360, 'test': 2202}
 
 _NUM_CLASSES = 72
 
 _ITEMS_TO_DESCRIPTIONS = {
-    'image': 'A [224 x 224 x 3] color image.',
+    'image': 'A [256 x 256 x 3] color image.',
     'label': 'A single integer between 0 and 71',
 }
 
@@ -68,9 +62,8 @@ def get_split(split_name, dataset_dir, file_pattern=None, reader=None):
     raise ValueError('split name %s was not recognized.' % split_name)
 
   if not file_pattern:
-    file_pattern = _FILE_PATTERN[split_name]
-  #file_pattern = os.path.join(dataset_dir, file_pattern % split_name)
-  file_pattern = os.path.join(dataset_dir, file_pattern)
+    file_pattern = _FILE_PATTERN
+  file_pattern = os.path.join(dataset_dir, file_pattern % split_name)
 
   # Allowing None in the signature so that dataset_factory can use the default.
   if not reader:
@@ -84,7 +77,7 @@ def get_split(split_name, dataset_dir, file_pattern=None, reader=None):
   }
 
   items_to_handlers = {
-      'image': slim.tfexample_decoder.Image(shape=[224, 224, 3]),
+      'image': slim.tfexample_decoder.Image(shape=[256, 256, 3]),
       'label': slim.tfexample_decoder.Tensor('image/class/label'),
   }
 

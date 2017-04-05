@@ -13,7 +13,8 @@
 TRAIN_DIR=log
 
 # Where the dataset is saved to.
-DATASET_DIR=splited_data/output
+DATASET_DIR=splited_dat
+PRETRAINED_CHECKPOINT_DIR=checkpoint
 
 
 # Run training.
@@ -24,6 +25,7 @@ python train_image_classifier.py \
   --dataset_dir=${DATASET_DIR} \
   --model_name=vgg_16 \
   --preprocessing_name=clef \
+  --checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v3.ckpt \
   --max_number_of_steps=100000 \
   --batch_size=8 \
   --save_interval_secs=120 \

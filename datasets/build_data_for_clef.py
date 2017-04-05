@@ -78,7 +78,7 @@ import tensorflow as tf
 tf.app.flags.DEFINE_string('train_directory', '/tmp/',
                            'train data directory')
 tf.app.flags.DEFINE_string('test_directory', '/tmp/',
-                           'part-second data directory')
+                           'test data directory')
 tf.app.flags.DEFINE_string('output_directory', '/tmp/',
                            'Output data directory')
 
@@ -427,9 +427,9 @@ def main(unused_argv):
   print('Saving results to %s' % FLAGS.output_directory)
 
   # Run it!
-  _process_dataset('train_directory', FLAGS.TRAIN_DIRECTORY,
+  _process_dataset('train', FLAGS.train_directory,
                    FLAGS.shards, FLAGS.labels_file)
-  _process_dataset('test_directory', FLAGS.TEST_DIRECTORY,
+  _process_dataset('test', FLAGS.test_directory,
                    FLAGS.shards, FLAGS.labels_file)
 
 
