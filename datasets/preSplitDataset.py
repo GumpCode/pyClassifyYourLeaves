@@ -70,7 +70,7 @@ def addPad(img, width, height):
     return new_img
 
 def doubleSplit(record_list):
-    point = int(len(record_list)/10*3)
+    point = int((len(record_list)/10)*3)
     random.shuffle(record_list)
     list = []
     list.append(record_list[0:point+1])
@@ -145,11 +145,10 @@ if __name__ == '__main__':
     j = 0
     for key in record.keys():
         for l in record[key]:
-            if len(l) >= 2:
+            if len(l) >= 3:
                 splited_result = doubleSplit(l)
                 copyImg(splited_result[0], dirsets[0], j, tp, shape)
                 copyImg(splited_result[1], dirsets[1], j, tp, shape)
             else:
-                n = random.randint(0,1)
-                copyImg(l, dirsets[n], j, tp, shape)
+                copyImg(l, dirsets[1], j, tp, shape)
         j += 1

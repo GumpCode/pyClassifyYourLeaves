@@ -13,7 +13,7 @@
 TRAIN_DIR=log
 
 # Where the dataset is saved to.
-DATASET_DIR=splited_dat
+DATASET_DIR=splited_data/output
 PRETRAINED_CHECKPOINT_DIR=checkpoint
 
 
@@ -23,11 +23,13 @@ python train_image_classifier.py \
   --dataset_name=clef \
   --dataset_split_name=train \
   --dataset_dir=${DATASET_DIR} \
-  --model_name=inception_v4 \
+  --model_name=inception_v3 \
   --preprocessing_name=clef \
-  --checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v4.ckpt \
+  --checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v3.ckpt \
+  --checkpoint_exclude_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
+  --trainable_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
   --max_number_of_steps=100000 \
-  --batch_size=8 \
+  --batch_size=2 \
   --save_interval_secs=120 \
   --save_summaries_secs=120 \
   --log_every_n_steps=100 \
@@ -39,10 +41,40 @@ python train_image_classifier.py \
   --train_image_size=224
 
 # Run evaluation.
-#python eval_image_classifier.py \
-#  --checkpoint_path=${TRAIN_DIR} \
-#  --eval_dir=${TRAIN_DIR} \
-#  --dataset_name=cifar10 \
-#  --dataset_split_name=test \
-#  --dataset_dir=${DATASET_DIR} \
-#  --model_name=cifarnet
+python eval_image_classifier.py \
+  --checkpoint_path=${TRAIN_DIR} \
+  --eval_dir=${TRAIN_DIR} \
+  --dataset_name=clef \
+  --dataset_split_name=validation \
+  --dataset_dir=${DATASET_DIR} \
+  --model_name=inception_v3 \
+  --eval_image_size=224
+
+# Fine-tune all the new layers for 500 steps.
+python train_image_classifier.py \
+  --train_dir=${TRAIN_DIR}/all \
+  --dataset_name=clef \
+  --dataset_split_name=train \
+  --dataset_dir=${DATASET_DIR} \
+  --model_name=inception_v3 \
+  --checkpoint_path=${TRAIN_DIR} \
+  --max_number_of_steps=500 \
+  --batch_size=32 \
+  --learning_rate=0.0001 \
+  --learning_rate_decay_type=fixed \
+  --save_interval_secs=60 \
+  --save_summaries_secs=60 \
+  --log_every_n_steps=10 \
+  --optimizer=rmsprop \
+  --weight_decay=0.00004 \
+  --train_image_size=224
+
+# Run evaluation.
+python eval_image_classifier.py \
+  --checkpoint_path=${TRAIN_DIR}/all \
+  --eval_dir=${TRAIN_DIR}/all \
+  --dataset_name=clef \
+  --dataset_split_name=validation \
+  --dataset_dir=${DATASET_DIR} \
+  --model_name=inception_v3 \
+  --eval_image_size=224
