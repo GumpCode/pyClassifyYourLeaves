@@ -31,7 +31,11 @@ slim = tf.contrib.slim
 
 _FILE_PATTERN = '%s-00000-of-00001'
 
+#################################################
+#change the num to corrected one
+#################################################
 SPLITS_TO_SIZES = {'train': 5360, 'test': 2202}
+
 
 _NUM_CLASSES = 72
 

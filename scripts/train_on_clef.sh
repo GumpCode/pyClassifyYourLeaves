@@ -23,9 +23,9 @@ python train_image_classifier.py \
   --dataset_name=clef \
   --dataset_split_name=train \
   --dataset_dir=${DATASET_DIR} \
-  --model_name=vgg_16 \
+  --model_name=inception_v4 \
   --preprocessing_name=clef \
-  --checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v3.ckpt \
+  --checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v4.ckpt \
   --max_number_of_steps=100000 \
   --batch_size=8 \
   --save_interval_secs=120 \
